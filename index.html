@@ -4,48 +4,165 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ranjith's Energy Digest</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, Arial, sans-serif;
+      background: #0b0b0b;
+      color: #ffffff;
+      line-height: 1.5;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      background: linear-gradient(180deg, rgba(11,11,11,0.9), rgba(11,11,11,0));
+      backdrop-filter: blur(6px);
+    }
+
+    .logo { font-size: 20px; font-weight: 600; letter-spacing: 0.3px; }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .btn { font-size: 14px; padding: 8px 16px; border-radius: 999px; text-decoration: none; font-weight: 500; transition: all 0.2s ease; }
+    .btn-follow { color: #ffffff; background: #0A66C2; }
+    .btn-follow:hover { background: #1E7DD9; }
+    .btn-join { color: #ffffff; background: #25D366; }
+    .btn-join:hover { background: #1ebe5d; }
+
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 120px 5% 60px;
+      background: linear-gradient(90deg, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.75) 50%, rgba(11,11,11,0.4) 100%),
+                  url('https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-content { max-width: 100%; }
+    .hero h1 { font-size: 42px; line-height: 1.2; margin-bottom: 16px; }
+    .hero p { font-size: 16px; color: #cfcfcf; margin-bottom: 24px; }
+    .hero .cta { display: inline-block; padding: 10px 20px; border-radius: 8px; background: #1f6bff; color: #ffffff; text-decoration: none; font-weight: 500; }
+
+    /* Grid Posts */
+    .posts-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 60px 5% 40px;
+      background: #0a0a0a;
+    }
+
+    .post-card {
+      background: #111111;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .post-card:hover { transform: translateY(-5px); }
+    .post-thumbnail { width: 100%; height: 160px; object-fit: cover; }
+    .post-content { padding: 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .post-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .post-description { font-size: 14px; color: #cfcfcf; margin-bottom: 12px; }
+    .post-links a { font-size: 14px; color: #1f6bff; text-decoration: none; margin-right: 10px; }
+
+    /* Vertical scroll for additional cards */
+    .posts-section { max-height: 1000px; overflow-y: auto; }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 14px; }
+      .posts-section { grid-template-columns: 1fr; padding: 40px 5%; }
+      header { padding: 15px 5%; }
+      .btn { padding: 8px 12px; font-size: 13px; }
+    }
+
+    @media (min-width: 1200px) {
+      .hero h1 { font-size: 56px; }
+      .hero p { font-size: 18px; }
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <header class="navbar">
-    <div class="container nav-content">
-      <div class="logo">Energy Digest</div>
-      <nav>
-        <a href="#">Home</a>
-        <a href="#">Articles</a>
-        <a href="#">Insights</a>
-        <a href="#">About</a>
-      </nav>
+  <header>
+    <div class="logo">Ranjith’s Energy Digest</div>
+    <div class="nav-actions">
+      <a href="#follow" class="btn btn-follow">Follow</a>
+      <a href="https://wa.me/XXXXXXXXXX" class="btn btn-join">Join</a>
     </div>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero">
-    <div class="container hero-content">
-      <div class="hero-text">
-        <h1>Ranjith's<br>Energy Digest</h1>
-        <p>
-          Independent analysis and data on natural gas, LNG,
-          power markets, and policy—focused on India’s evolving
-          energy sector.
-        </p>
-        <a href="#" class="btn-primary">Latest</a>
-      </div>
-
-      <div class="hero-image">
-        <img src="hero.jpg" alt="LNG Ship" />
-      </div>
+    <div class="hero-content">
+      <h1>Ranjith's Energy Digest</h1>
+      <p>Independent analysis and data on natural gas, LNG, power markets, and policy—focused on India’s evolving energy sector.</p>
+      <a href="#latest" class="cta">Latest</a>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>© 2025 Ranjith's Energy Digest</p>
+  <section class="posts-section">
+    <div class="post-card">
+      <img src="https://via.placeholder.com/400x160" class="post-thumbnail" alt="Post 1">
+      <div class="post-content">
+        <div class="post-title">Post Title 1</div>
+        <div class="post-description">This is a description for the first post. You can replace it later with real content.</div>
+        <div class="post-links">
+          <a href="#">Read</a>
+          <a href="#">Source</a>
+        </div>
+      </div>
     </div>
-  </footer>
+
+    <div class="post-card">
+      <img src="https://via.placeholder.com/400x160" class="post-thumbnail" alt="Post 2">
+      <div class="post-content">
+        <div class="post-title">Post Title 2</div>
+        <div class="post-description">This is a description for the second post. You can replace it later with real content.</div>
+        <div class="post-links">
+          <a href="#">Read</a>
+          <a href="#">Source</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <img src="https://via.placeholder.com/400x160" class="post-thumbnail" alt="Post 3">
+      <div class="post-content">
+        <div class="post-title">Post Title 3</div>
+        <div class="post-description">This is a description for the third post. You can replace it later with real content.</div>
+        <div class="post-links">
+          <a href="#">Read</a>
+          <a href="#">Source</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="post-card">
+      <img src="https://via.placeholder.com/400x160" class="post-thumbnail" alt="Post 4">
+      <div class="post-content">
+        <div class="post-title">Post Title 4</div>
+        <div class="post-description">This is a description for the fourth post. You can replace it later with real content.</div>
+        <div class="post-links">
+          <a href="#">Read</a>
+          <a href="#">Source</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </body>
 </html>
