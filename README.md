@@ -1,5 +1,4 @@
 # Energy-Insights
-# Energy & Gas Infographics
 
 This repository hosts simple, interactive infographics and visual explainers
 focused on natural gas, LNG, energy markets, and infrastructure in India.
