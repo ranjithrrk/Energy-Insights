@@ -53,15 +53,16 @@
       text-transform: uppercase;
     }
 
-    .nav-actions { display: flex; gap: 12px; align-items: center; }
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
     
     .btn { 
       font-size: 13px; 
-      padding: 8px 18px; 
+      padding: 8px 16px; 
       border-radius: 6px; 
       text-decoration: none; 
       font-weight: 600; 
       transition: all 0.2s ease; 
+      white-space: nowrap;
     }
 
     .btn-follow { 
@@ -103,10 +104,7 @@
       right: 0;
       width: 55%; 
       height: 100%;
-      
-      /* LOCAL IMAGE PLACEHOLDER: Ensure hero.jpg is in the same folder as this HTML file on GitHub */
       background-image: url('hero.jpg'); 
-      
       background-size: cover;
       background-position: center;
       -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 95%);
@@ -124,7 +122,7 @@
     }
     
     .hero h1 { 
-      font-size: clamp(2.5rem, 6vw, 3.5rem); 
+      font-size: clamp(2.2rem, 6vw, 3.5rem); 
       line-height: 1.15; 
       margin-bottom: 1.5rem;
       font-weight: 800;
@@ -284,24 +282,32 @@
     }
     .post-links a:hover { border-color: var(--accent-navy); }
 
+    /* Tighter Footer */
     footer {
-      padding: 60px 5%;
+      padding: 30px 5%;
       background: var(--accent-navy);
       color: #ffffff;
       text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
 
-    footer p { opacity: 0.7; font-size: 14px; }
+    footer p { opacity: 0.7; font-size: 13px; letter-spacing: 0.02em; }
 
     /* Responsive */
     @media (max-width: 768px) {
-      header { padding: 1rem 5%; }
-      .nav-actions .btn-follow { display: none; }
-      .hero { padding-top: 140px; padding-bottom: 60px; }
+      header { padding: 0.8rem 5%; }
+      .logo { font-size: 1rem; }
+      .nav-actions { gap: 6px; }
+      .btn { padding: 6px 12px; font-size: 12px; }
+      
+      /* Ensure follow is visible on mobile */
+      .nav-actions .btn-follow { display: inline-block; }
+      
+      .hero { padding-top: 120px; padding-bottom: 60px; }
       .hero::before { width: 100%; opacity: 0.15; -webkit-mask-image: linear-gradient(to bottom, black, transparent); mask-image: linear-gradient(to bottom, black, transparent); }
       .posts-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: 1fr; gap: 30px; }
-      .stat-item { border-left: 3px solid var(--accent-blue); background: var(--bg-alt); padding: 20px; border-radius: 0 8px 8px 0; }
+      .stats-grid { grid-template-columns: 1fr; gap: 20px; }
+      .stat-item { border-left: 3px solid var(--accent-blue); background: var(--bg-alt); padding: 15px; border-radius: 0 8px 8px 0; }
     }
   </style>
 </head>
@@ -310,8 +316,8 @@
   <header>
     <div class="logo">Ranjith’s Energy Digest</div>
     <div class="nav-actions">
-      <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="btn btn-follow">LinkedIn</a>
-      <a href="https://chat.whatsapp.com/GoCN0Hiyhac2Za1ocmVhrQ" target="_blank" class="btn btn-join">Join Community</a>
+      <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="btn btn-follow">Follow</a>
+      <a href="https://chat.whatsapp.com/GoCN0Hiyhac2Za1ocmVhrQ" target="_blank" class="btn btn-join">Join</a>
     </div>
   </header>
 
@@ -357,6 +363,19 @@
     <div class="posts-grid">
       <!-- Post 1 -->
       <article class="post-card">
+        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=800" class="post-thumbnail" alt="LNG Terminal">
+        <div class="post-content">
+          <span class="post-category">Natural Gas</span>
+          <h3 class="post-title">The Evolution of India's LNG Terminals</h3>
+          <p class="post-description">An analysis of utilization rates across the west and east coasts as new pipeline infrastructure comes online.</p>
+          <div class="post-links">
+            <a href="#">Read Analysis →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Post 2: Updated with requested structural shift analysis -->
+      <article class="post-card">
         <img src="posts/IEX-Power-Analysis-23-25.png" class="post-thumbnail" alt="IEX Power Price">
         <div class="post-content">
           <span class="post-category">Power Market</span>
@@ -364,19 +383,6 @@
           <p class="post-description">Explore how solar growth is reshaping India's power prices from 2023 to 2025.</p>
           <div class="post-links">
             <a href="posts/IEX-Power-Analysis-23-25.html">Read Analysis →</a>
-          </div>
-        </div>
-      </article>
-
-      <!-- Post 2 -->
-      <article class="post-card">
-        <img src="https://images.unsplash.com/photo-1466611653911-95282fc3656b?auto=format&fit=crop&q=80&w=800" class="post-thumbnail" alt="Power Grid">
-        <div class="post-content">
-          <span class="post-category">Power Market</span>
-          <h3 class="post-title">Grid Balancing in the Solar Age</h3>
-          <p class="post-description">Evaluating the role of gas-fired peaking plants as renewable penetration hits record highs in the national grid.</p>
-          <div class="post-links">
-            <a href="#">Read Analysis →</a>
           </div>
         </div>
       </article>
