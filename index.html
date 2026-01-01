@@ -46,11 +46,19 @@
     }
 
     .logo { 
-      font-size: 1.15rem; 
-      font-weight: 800; 
-      letter-spacing: -0.02em;
+      font-size: 1.25rem; 
+      font-weight: 800;
+      letter-spacing: -0.03em;
       color: var(--accent-navy);
+      text-decoration: none;
       text-transform: uppercase;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-name {
+      color: var(--accent-blue);
+      margin-right: 6px;
     }
 
     .nav-actions { display: flex; gap: 8px; align-items: center; }
@@ -314,7 +322,9 @@
 <body>
 
   <header>
-    <div class="logo">Ranjith’s Energy Digest</div>
+<a href="#" class="logo">
+  <span class="logo-name">Ranjith’s</span> Energy Digest
+</a>
     <div class="nav-actions">
       <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="btn btn-follow">Follow</a>
       <a href="https://chat.whatsapp.com/GoCN0Hiyhac2Za1ocmVhrQ" target="_blank" class="btn btn-join">Join</a>
