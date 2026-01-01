@@ -1,0 +1,175 @@
+import React from 'react';
+import { 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  LineChart, Line, LabelList
+} from 'recharts';
+
+const App = () => {
+  // Data for Table 1: Price Distribution (Mapped for 100% Stacked View)
+  const distributionData = [
+    { 
+      year: '2023', 
+      '<2': 2, '2-4': 42, '4-6': 24, '6-8': 8, '8-12': 24 
+    },
+    { 
+      year: '2024', 
+      '<2': 6, '2-4': 55, '4-6': 19, '6-8': 3, '8-12': 17 
+    },
+    { 
+      year: '2025', 
+      '<2': 17, '2-4': 52, '4-6': 15, '6-8': 2, '8-12': 14 
+    },
+  ];
+
+  // Data for Table 2: Hourly Average (Duck Curve)
+  const hourlyRaw = [
+    ["00:00", 6.34, 5.88, 4.55], ["01:00", 5.73, 5.09, 4.09], ["02:00", 5.05, 4.12, 3.68],
+    ["03:00", 4.58, 3.72, 3.42], ["04:00", 4.38, 3.56, 3.27], ["05:00", 4.83, 3.52, 3.46],
+    ["06:00", 5.68, 4.14, 4.17], ["07:00", 5.99, 4.78, 4.73], ["08:00", 5.47, 4.67, 3.79],
+    ["09:00", 5.19, 4.13, 3.04], ["10:00", 4.83, 3.65, 2.19], ["11:00", 4.30, 3.16, 2.02],
+    ["12:00", 3.96, 2.71, 1.92], ["13:00", 3.47, 2.34, 1.71], ["14:00", 3.67, 2.74, 1.97],
+    ["15:00", 4.23, 3.14, 2.33], ["16:00", 4.88, 3.65, 2.74], ["17:00", 5.92, 4.87, 3.75],
+    ["18:00", 6.81, 5.78, 5.55], ["19:00", 8.44, 7.19, 7.92], ["20:00", 7.41, 6.86, 6.75],
+    ["21:00", 7.10, 6.72, 6.26], ["22:00", 6.87, 6.41, 6.10], ["23:00", 6.72, 6.32, 5.76],
+    ["24:00", 6.56, 6.23, 5.29]
+  ];
+
+  const curveData = hourlyRaw.map(row => ({
+    time: row[0],
+    '2023': row[1],
+    '2024': row[2],
+    '2025': row[3]
+  }));
+
+  // Colors: Dark Green for <2, Light Green for 2-4 (as requested)
+  const colors = {
+    cat1: "#166534", // Dark Green (<2)
+    cat2: "#86efac", // Light Green (2-4)
+    cat3: "#06b6d4", // Cyan (4-6)
+    cat4: "#f59e0b", // Amber (6-8)
+    cat5: "#ef4444", // Red (8-12)
+    p23: "#94a3b8",
+    p24: "#3b82f6",
+    p25: "#1e3a8a",
+  };
+
+  const renderCustomLabel = (props) => {
+    const { x, y, width, value } = props;
+    if (value < 5) return null; 
+    // Manual adjustment for visibility on light green background
+    const isLightBackground = width > 10 && (value === 52 || value === 55 || value === 42); 
+    return (
+      <text 
+        x={x + width / 2} 
+        y={y + 24} 
+        fill={isLightBackground ? "#166534" : "#fff"} 
+        textAnchor="middle" 
+        fontSize={12} 
+        fontWeight="bold"
+      >
+        {value}%
+      </text>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
+      <header className="max-w-7xl mx-auto mb-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-slate-200 pb-4">
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">IEX Power Price Analysis</h1>
+            <p className="text-slate-500 mt-1 uppercase tracking-widest text-xs font-semibold">Day Ahead Market (DAM) • 15-Min Block Analysis</p>
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+            <h3 className="text-sm font-medium text-slate-500 uppercase">Midday Price Compression</h3>
+            <p className="text-2xl font-bold mt-2 text-green-700">1.75 ₹/kwh</p>
+            <p className="text-xs text-slate-400 mt-1">Average price during 1300 - 1400 Hrs in 2025</p>
+          </div>
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+            <h3 className="text-sm font-medium text-slate-500 uppercase">Evening Peak Premium</h3>
+            <p className="text-2xl font-bold mt-2 text-red-600">7.92 ₹/kwh</p>
+            <p className="text-xs text-slate-400 mt-1">Average peak recorded at 19:00 (2025)</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* 100% Stacked Bar Chart */}
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold">Power Price Distribution Across Trading Blocks</h2>
+              <p className="text-sm text-slate-500">Where Power Prices Spend Most Time</p>
+            </div>
+            <div className="h-[450px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart 
+                  data={distributionData} 
+                  layout="vertical"
+                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                  barSize={48}
+                >
+                  <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#f1f5f9" />
+                  <XAxis type="number" domain={[0, 100]} hide />
+                  <YAxis dataKey="year" type="category" axisLine={false} tickLine={false} fontWeight="bold" width={60} />
+                  <Tooltip 
+                    cursor={{fill: 'transparent'}}
+                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                    formatter={(value) => `${value}%`}
+                  />
+                  <Legend verticalAlign="top" align="center" iconType="rect" wrapperStyle={{paddingBottom: '20px'}} />
+                  <Bar name="< 2 ₹" dataKey="<2" stackId="a" fill={colors.cat1}>
+                    <LabelList dataKey="<2" content={renderCustomLabel} />
+                  </Bar>
+                  <Bar name="2-4 ₹" dataKey="2-4" stackId="a" fill={colors.cat2}>
+                    <LabelList dataKey="2-4" content={renderCustomLabel} />
+                  </Bar>
+                  <Bar name="4-6 ₹" dataKey="4-6" stackId="a" fill={colors.cat3}>
+                    <LabelList dataKey="4-6" content={renderCustomLabel} />
+                  </Bar>
+                  <Bar name="6-8 ₹" dataKey="6-8" stackId="a" fill={colors.cat4}>
+                    <LabelList dataKey="6-8" content={renderCustomLabel} />
+                  </Bar>
+                  <Bar name="8-12 ₹" dataKey="8-12" stackId="a" fill={colors.cat5} radius={[0, 4, 4, 0]}>
+                    <LabelList dataKey="8-12" content={renderCustomLabel} />
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Duck Curve Line Chart */}
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+            <div className="mb-6">
+              <h2 className="text-lg font-bold">The Duck Curve: </h2>
+              <p className="text-sm text-slate-500">How prices dip and peak daily</p>
+            </div>
+            <div className="h-[450px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={curveData} margin={{ top: 20, right: 30, left: 0, bottom: 20 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <XAxis dataKey="time" axisLine={false} tickLine={false} interval={3} label={{ value: 'Hour', position: 'insideBottom', offset: -5 }} />
+                  <YAxis axisLine={false} tickLine={false} unit="₹" />
+                  <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }} />
+                  <Legend verticalAlign="top" align="center" wrapperStyle={{paddingBottom: '20px'}} />
+                  <Line name="2023" type="monotone" dataKey="2023" stroke={colors.p23} strokeWidth={2} dot={false} />
+                  <Line name="2024" type="monotone" dataKey="2024" stroke={colors.p24} strokeWidth={2} dot={false} />
+                  <Line name="2025" type="monotone" dataKey="2025" stroke={colors.p25} strokeWidth={4} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer className="max-w-7xl mx-auto mt-12 mb-8 text-center text-slate-400 text-xs uppercase tracking-widest border-t border-slate-200 pt-8">
+        IEX Day-Ahead Market Block Data • Dashboard v2.2
+      </footer>
+    </div>
+  );
+};
+
+export default App;
