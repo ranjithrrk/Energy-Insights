@@ -1,404 +1,177 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ranjith's Energy Digest</title>
-  <style>
-    :root {
-      --bg-body: #fdfdfd;
-      --bg-alt: #f8f9fa;
-      --card-bg: #ffffff;
-      --text-main: #1a1a1a;
-      --text-muted: #555555;
-      --accent-navy: #0f172a;
-      --accent-blue: #2563eb;
-      --accent-green: #16a34a;
-      --border-color: #e5e7eb;
-    }
+import React from 'react';
+import { 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  LineChart, Line, LabelList
+} from 'recharts';
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    html { scroll-behavior: smooth; }
+const App = () => {
+  // Data for Table 1: Price Distribution (Mapped for 100% Stacked View)
+  const distributionData = [
+    { 
+      year: '2023', 
+      '<2': 2, '2-4': 42, '4-6': 24, '6-8': 8, '8-12': 24 
+    },
+    { 
+      year: '2024', 
+      '<2': 6, '2-4': 55, '4-6': 19, '6-8': 3, '8-12': 17 
+    },
+    { 
+      year: '2025', 
+      '<2': 17, '2-4': 52, '4-6': 15, '6-8': 2, '8-12': 14 
+    },
+  ];
 
-    body {
-      font-family: 'Inter', -apple-system, system-ui, sans-serif;
-      background: var(--bg-body);
-      color: var(--text-main);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+  // Data for Table 2: Hourly Average (Duck Curve)
+  const hourlyRaw = [
+    ["00:00", 6.34, 5.88, 4.55], ["01:00", 5.73, 5.09, 4.09], ["02:00", 5.05, 4.12, 3.68],
+    ["03:00", 4.58, 3.72, 3.42], ["04:00", 4.38, 3.56, 3.27], ["05:00", 4.83, 3.52, 3.46],
+    ["06:00", 5.68, 4.14, 4.17], ["07:00", 5.99, 4.78, 4.73], ["08:00", 5.47, 4.67, 3.79],
+    ["09:00", 5.19, 4.13, 3.04], ["10:00", 4.83, 3.65, 2.19], ["11:00", 4.30, 3.16, 2.02],
+    ["12:00", 3.96, 2.71, 1.92], ["13:00", 3.47, 2.34, 1.71], ["14:00", 3.67, 2.74, 1.97],
+    ["15:00", 4.23, 3.14, 2.33], ["16:00", 4.88, 3.65, 2.74], ["17:00", 5.92, 4.87, 3.75],
+    ["18:00", 6.81, 5.78, 5.55], ["19:00", 8.44, 7.19, 7.92], ["20:00", 7.41, 6.86, 6.75],
+    ["21:00", 7.10, 6.72, 6.26], ["22:00", 6.87, 6.41, 6.10], ["23:00", 6.72, 6.32, 5.76],
+    ["24:00", 6.56, 6.23, 5.29]
+  ];
 
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 5%;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-color);
-    }
+  const curveData = hourlyRaw.map(row => ({
+    time: row[0],
+    '2023': row[1],
+    '2024': row[2],
+    '2025': row[3]
+  }));
 
-    .logo { 
-      font-size: 1.15rem; 
-      font-weight: 800; 
-      letter-spacing: -0.02em;
-      color: var(--accent-navy);
-      text-transform: uppercase;
-    }
+  const colors = {
+    cat1: "#166534", // Dark Green (<2)
+    cat2: "#86efac", // Light Green (2-4)
+    cat3: "#06b6d4", // Cyan (4-6)
+    cat4: "#f59e0b", // Amber (6-8)
+    cat5: "#ef4444", // Red (8-12)
+    p23: "#94a3b8",
+    p24: "#2563eb", // Using your accent-blue
+    p25: "#0f172a", // Using your accent-navy
+  };
 
-    .nav-actions { display: flex; gap: 12px; align-items: center; }
-    
-    .btn { 
-      font-size: 13px; 
-      padding: 8px 18px; 
-      border-radius: 6px; 
-      text-decoration: none; 
-      font-weight: 600; 
-      transition: all 0.2s ease; 
-    }
+  const renderCustomLabel = (props) => {
+    const { x, y, width, value } = props;
+    if (value < 5) return null; 
+    const isLightBackground = width > 10 && (value === 52 || value === 55 || value === 42); 
+    return (
+      <text 
+        x={x + width / 2} 
+        y={y + 24} 
+        fill={isLightBackground ? "#166534" : "#fff"} 
+        textAnchor="middle" 
+        fontSize={12} 
+        fontWeight="bold"
+      >
+        {value}%
+      </text>
+    );
+  };
 
-    .btn-follow { 
-      color: #0A66C2; 
-      border: 1px solid #0A66C2;
-      background: transparent;
-    }
-    .btn-follow:hover { 
-      background: #f0f7ff;
-    }
-    
-    .btn-join { 
-      color: #ffffff; 
-      background: var(--accent-green); 
-    }
-    .btn-join:hover { 
-      background: #15803d;
-      transform: translateY(-1px);
-    }
+  return (
+    <div className="min-h-screen bg-[#fdfdfd] text-[#1a1a1a] font-sans">
+      {/* Header - Styled to match your website */}
+      <header className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-[5%] py-4 bg-white/90 backdrop-blur-md border-b border-gray-200">
+        <a href="https://ranjithrrk.github.io/Energy-Insights/" className="text-[1.15rem] font-extrabold tracking-tight text-[#0f172a] uppercase no-underline">
+          Ranjith’s Energy Digest
+        </a>
+        <div className="flex gap-3 items-center">
+          <a href="https://ranjithrrk.github.io/Energy-Insights/" className="text-[13px] px-4 py-2 rounded-md font-semibold border border-gray-200 hover:bg-gray-50 no-underline text-gray-900 transition-colors">
+            Home
+          </a>
+          <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" className="hidden md:flex text-[13px] px-4 py-2 rounded-md font-semibold border border-[#0A66C2] text-[#0A66C2] hover:bg-[#f0f7ff] no-underline transition-colors">
+            LinkedIn
+          </a>
+          <a href="https://chat.whatsapp.com/GoCN0Hiyhac2Za1ocmVhrQ" target="_blank" className="text-[13px] px-4 py-2 rounded-md font-semibold bg-[#16a34a] text-white hover:bg-[#15803d] no-underline transition-transform hover:-translate-y-px">
+            Join Community
+          </a>
+        </div>
+      </header>
 
-    /* Hero Section with Local Shaded Background Image */
-    .hero {
-      position: relative;
-      min-height: 75vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 160px 5% 100px;
-      background: var(--bg-alt);
-      border-bottom: 1px solid var(--border-color);
-      overflow: hidden;
-    }
+      <main className="pt-28 pb-16 px-[5%] max-w-7xl mx-auto">
+        <div className="mb-10 pb-5 border-b border-gray-100">
+          <span className="inline-block text-[12px] font-bold text-[#2563eb] uppercase tracking-widest mb-3">Power Market Analysis</span>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-[#0f172a] tracking-tight leading-tight">IEX Power Analysis: Market Trends & Clearing Prices</h1>
+        </div>
 
-    /* The Background Image Logic */
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 55%; 
-      height: 100%;
-      
-      /* LOCAL IMAGE PLACEHOLDER: Ensure hero.jpg is in the same folder as this HTML file on GitHub */
-      background-image: url('hero.jpg'); 
-      
-      background-size: cover;
-      background-position: center;
-      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 95%);
-      mask-image: linear-gradient(to left, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 95%);
-      opacity: 0.35; 
-      filter: grayscale(20%) contrast(110%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .hero-content { 
-      max-width: 800px; 
-      position: relative;
-      z-index: 2;
-    }
-    
-    .hero h1 { 
-      font-size: clamp(2.5rem, 6vw, 3.5rem); 
-      line-height: 1.15; 
-      margin-bottom: 1.5rem;
-      font-weight: 800;
-      color: var(--accent-navy);
-      letter-spacing: -0.04em;
-    }
-    
-    .hero p { 
-      font-size: clamp(1.1rem, 3vw, 1.4rem); 
-      color: var(--text-muted); 
-      margin-bottom: 2.5rem; 
-      max-width: 600px;
-      font-weight: 400;
-    }
-    
-    .cta { 
-      display: inline-block; 
-      padding: 14px 28px; 
-      border-radius: 6px; 
-      background: var(--accent-navy); 
-      color: #ffffff; 
-      text-decoration: none; 
-      font-weight: 600;
-      transition: opacity 0.2s;
-    }
-    .cta:hover { opacity: 0.9; }
-
-    /* Stats Bar - Social Proof */
-    .stats-section {
-      padding: 80px 5%;
-      background: #ffffff;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .stat-item {
-      padding: 0 0 0 20px;
-      border-left: 2px solid var(--border-color);
-    }
-
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent-blue);
-      display: block;
-      margin-bottom: 4px;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--accent-navy);
-      display: block;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .stat-desc {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-
-    /* Posts Section */
-    .posts-container {
-      padding: 100px 5%;
-    }
-
-    .section-header {
-      margin-bottom: 60px;
-      text-align: left;
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--accent-navy);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      position: relative;
-      padding-bottom: 15px;
-    }
-
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: var(--accent-blue);
-    }
-
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 50px;
-    }
-
-    .post-card {
-      background: transparent;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.3s ease;
-    }
-
-    .post-thumbnail { 
-      width: 100%; 
-      height: 240px; 
-      object-fit: cover; 
-      border-radius: 4px;
-      background: #eee;
-      margin-bottom: 24px;
-    }
-
-    .post-category {
-      font-size: 12px;
-      text-transform: uppercase;
-      font-weight: 700;
-      color: var(--accent-blue);
-      margin-bottom: 12px;
-      letter-spacing: 0.05em;
-    }
-
-    .post-title { 
-      font-size: 1.4rem; 
-      font-weight: 700; 
-      margin-bottom: 12px;
-      line-height: 1.3;
-      color: var(--accent-navy);
-    }
-
-    .post-description { 
-      font-size: 1rem; 
-      color: var(--text-muted); 
-      margin-bottom: 24px; 
-      flex-grow: 1;
-    }
-
-    .post-links a { 
-      font-size: 14px; 
-      color: var(--accent-navy); 
-      text-decoration: none; 
-      font-weight: 700;
-      padding-bottom: 2px;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.2s;
-    }
-    .post-links a:hover { border-color: var(--accent-navy); }
-
-    footer {
-      padding: 60px 5%;
-      background: var(--accent-navy);
-      color: #ffffff;
-      text-align: center;
-    }
-
-    footer p { opacity: 0.7; font-size: 14px; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      header { padding: 1rem 5%; }
-      .nav-actions .btn-follow { display: none; }
-      .hero { padding-top: 140px; padding-bottom: 60px; }
-      .hero::before { width: 100%; opacity: 0.15; -webkit-mask-image: linear-gradient(to bottom, black, transparent); mask-image: linear-gradient(to bottom, black, transparent); }
-      .posts-grid { grid-template-columns: 1fr; }
-      .stats-grid { grid-template-columns: 1fr; gap: 30px; }
-      .stat-item { border-left: 3px solid var(--accent-blue); background: var(--bg-alt); padding: 20px; border-radius: 0 8px 8px 0; }
-    }
-  </style>
-</head>
-<body>
-
-  <header>
-    <div class="logo">Ranjith’s Energy Digest</div>
-    <div class="nav-actions">
-      <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="btn btn-follow">LinkedIn</a>
-      <a href="https://chat.whatsapp.com/GoCN0Hiyhac2Za1ocmVhrQ" target="_blank" class="btn btn-join">Join Community</a>
-    </div>
-  </header>
-
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Data-driven insights into India's energy transition.</h1>
-      <p>Independent analysis on natural gas markets, LNG infrastructure, and the policy landscape of the subcontinent.</p>
-      <a href="#latest" class="cta">Read Latest Insights</a>
-    </div>
-  </section>
-
-  <!-- Platform Stats Section -->
-  <section class="stats-section">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <span class="stat-value">120+</span>
-        <span class="stat-label">Expert Explainers</span>
-        <p class="stat-desc">Clear insights on energy topics.</p>
-      </div>
-      <div class="stat-item">
-        <span class="stat-value">75+</span>
-        <span class="stat-label">Market Visuals</span>
-        <p class="stat-desc">Charts on gas, power, policy.</p>
-      </div>
-      <div class="stat-item">
-        <span class="stat-value">700K+</span>
-        <span class="stat-label">Annual Impressions</span>
-        <p class="stat-desc">Read by senior energy professionals.</p>
-      </div>
-      <div class="stat-item">
-        <span class="stat-value">5K+</span>
-        <span class="stat-label">Followers</span>
-        <p class="stat-desc">Core energy sector practitioners.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="posts-container" id="latest">
-    <div class="section-header">
-      <h2 class="section-title">Latest Insights</h2>
-    </div>
-
-    <div class="posts-grid">
-      <!-- Post 1 -->
-      <article class="post-card">
-        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80&w=800" class="post-thumbnail" alt="LNG Terminal">
-        <div class="post-content">
-          <span class="post-category">Natural Gas</span>
-          <h3 class="post-title">The Evolution of India's LNG Terminals</h3>
-          <p class="post-description">An analysis of utilization rates across the west and east coasts as new pipeline infrastructure comes online.</p>
-          <div class="post-links">
-            <a href="#">Read Analysis →</a>
+        {/* Stats Summary */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+          <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest">Midday Price Compression</h3>
+            <p className="text-2xl font-black mt-2 text-[#16a34a]">1.71 ₹/kWh</p>
+            <p className="text-xs text-gray-400 mt-1 italic">Average lowest price block (2025 YTD)</p>
+          </div>
+          <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-widest">Evening Peak Premium</h3>
+            <p className="text-2xl font-black mt-2 text-[#ef4444]">7.92 ₹/kWh</p>
+            <p className="text-xs text-gray-400 mt-1 italic">Average peak recorded at 19:00 Hrs</p>
           </div>
         </div>
-      </article>
 
-      <!-- Post 2 -->
-      <article class="post-card">
-        <img src="https://images.unsplash.com/photo-1466611653911-95282fc3656b?auto=format&fit=crop&q=80&w=800" class="post-thumbnail" alt="Power Grid">
-        <div class="post-content">
-          <span class="post-category">Power Market</span>
-          <h3 class="post-title">Grid Balancing in the Solar Age</h3>
-          <p class="post-description">Evaluating the role of gas-fired peaking plants as renewable penetration hits record highs in the national grid.</p>
-          <div class="post-links">
-            <a href="#">Read Analysis →</a>
+        {/* Visualization Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* Price Distribution */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+            <div className="mb-8">
+              <h2 className="text-lg font-bold text-[#0f172a]">Price Distribution Probability</h2>
+              <p className="text-sm text-gray-500">Trading hours spent within specific price bands (%)</p>
+            </div>
+            <div className="h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={distributionData} layout="vertical" margin={{ left: 10, right: 30 }} barSize={45}>
+                  <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#f8fafc" />
+                  <XAxis type="number" hide />
+                  <YAxis dataKey="year" type="category" axisLine={false} tickLine={false} fontWeight="800" fontSize={14} />
+                  <Tooltip 
+                    cursor={{fill: 'transparent'}}
+                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }}
+                  />
+                  <Legend verticalAlign="top" align="center" iconType="rect" wrapperStyle={{paddingBottom: '20px'}} />
+                  <Bar name="< 2 ₹" dataKey="<2" stackId="a" fill={colors.cat1}><LabelList dataKey="<2" content={renderCustomLabel} /></Bar>
+                  <Bar name="2-4 ₹" dataKey="2-4" stackId="a" fill={colors.cat2}><LabelList dataKey="2-4" content={renderCustomLabel} /></Bar>
+                  <Bar name="4-6 ₹" dataKey="4-6" stackId="a" fill={colors.cat3}><LabelList dataKey="4-6" content={renderCustomLabel} /></Bar>
+                  <Bar name="6-8 ₹" dataKey="6-8" stackId="a" fill={colors.cat4}><LabelList dataKey="6-8" content={renderCustomLabel} /></Bar>
+                  <Bar name="8-12 ₹" dataKey="8-12" stackId="a" fill={colors.cat5} radius={[0, 4, 4, 0]}><LabelList dataKey="8-12" content={renderCustomLabel} /></Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Duck Curve */}
+          <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+            <div className="mb-8">
+              <h2 className="text-lg font-bold text-[#0f172a]">The Solar "Duck" Curve</h2>
+              <p className="text-sm text-gray-500">Average price profile shift (₹/kWh) over 24 hours</p>
+            </div>
+            <div className="h-[400px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={curveData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f8fafc" />
+                  <XAxis dataKey="time" axisLine={false} tickLine={false} interval={3} fontSize={11} fontWeight="600" />
+                  <YAxis axisLine={false} tickLine={false} fontSize={11} unit="₹" />
+                  <Tooltip contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)' }} />
+                  <Legend verticalAlign="top" align="center" wrapperStyle={{paddingBottom: '20px'}} />
+                  <Line name="2023" type="monotone" dataKey="2023" stroke={colors.p23} strokeWidth={2} dot={false} strokeDasharray="4 4" />
+                  <Line name="2024" type="monotone" dataKey="2024" stroke={colors.p24} strokeWidth={2.5} dot={false} />
+                  <Line name="2025 (YTD)" type="monotone" dataKey="2025" stroke={colors.p25} strokeWidth={4} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
-      </article>
 
-      <!-- Post 3 -->
-      <article class="post-card">
-        <img src="https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?auto=format&fit=crop&q=80&w=800" class="post-thumbnail" alt="Policy">
-        <div class="post-content">
-          <span class="post-category">Policy</span>
-          <h3 class="post-title">Gas-Based Economy: Policy Outlook</h3>
-          <p class="post-description">Tracking the progress of 'One Nation One Gas Grid' and its implications for industrial consumers in South India.</p>
-          <div class="post-links">
-            <a href="#">Read Analysis →</a>
-          </div>
+        <div className="mt-12 text-[#555555] text-lg leading-relaxed max-w-3xl">
+          <p>This analysis highlights the structural shift in India's power markets. Increased solar penetration is driving midday prices toward the floor (below 2 ₹/kWh), while evening scarcity remains the primary price driver, often hitting the regulatory cap blocks in summer peak months.</p>
         </div>
-      </article>
+      </main>
+
+      <footer className="bg-[#0f172a] text-white py-16 px-[5%] text-center">
+        <p className="opacity-70 text-sm">© 2024 Ranjith's Energy Digest. Independent Analysis & Data Intelligence.</p>
+      </footer>
     </div>
-  </section>
+  );
+};
 
-  <footer>
-    <p>&copy; 2024 Ranjith's Energy Digest. Independent Analysis & Data Intelligence.</p>
-  </footer>
-
-</body>
-</html>
+export default App;
