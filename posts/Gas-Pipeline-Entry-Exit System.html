@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gas Pipeline Entry-Exit System - Transformation Report</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for a modern, energetic look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        :root {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb;
+            color: #1f2937;
+        }
+
+        .header-bg {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .v-nudge {
+            transform: translateY(-1px);
+        }
+
+        .section-title-accent {
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title-accent::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: #f97316; /* Orange accent */
+            border-radius: 9999px;
+        }
+
+        .icon-check {
+            color: #10b981; /* Emerald */
+        }
+
+        .icon-cross {
+            color: #ef4444; /* Red */
+        }
+
+        /* Nav Glass effect */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Branding Logo Styles */
+        .logo { 
+            font-size: 1.25rem; 
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #0F172A; /* Navy for 'Energy Digest' */
+            text-transform: uppercase;
+        }
+        .logo-name {
+            color: #2563EB; /* Blue for 'Ranjith's' */
+            margin-right: 4px;
+        }
+        @media (max-width: 768px) {
+            .logo { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 nav-glass py-3 mb-8">
+        <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+            <!-- Updated Logo Section -->
+            <div class="flex-shrink-0 flex items-center">
+                <a href="https://ranjithrrk.github.io/Energy-Insights/" class="logo no-underline">
+                    <span class="logo-name">Ranjith's</span> Energy Digest
+                </a>
+            </div>
+
+            <!-- Header Action Buttons -->
+            <div class="flex gap-1.5 md:gap-3 items-center">
+                <!-- Home button -->
+                <a href="https://ranjithrrk.github.io/Energy-Insights/" class="text-[11px] md:text-[13px] px-2.5 md:px-4 py-2 rounded-md font-semibold border border-gray-200 hover:bg-gray-50 no-underline text-gray-900 transition-colors">
+                    Home
+                </a>
+                <!-- LinkedIn Follow button -->
+                <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="text-[11px] md:text-[13px] px-2.5 md:px-4 py-2 rounded-md font-semibold border border-[#0A66C2] text-[#0A66C2] hover:bg-[#f0f7ff] no-underline transition-colors">
+                    Follow
+                </a>
+                <!-- WhatsApp Join button -->
+                <a href="https://chat.whatsapp.com/GoCN0Hiyhac2Za1ocmVhrQ" target="_blank" class="text-[11px] md:text-[13px] px-2.5 md:px-4 py-2 rounded-md font-semibold bg-[#16a34a] text-white hover:bg-[#15803d] no-underline transition-transform active:scale-95">
+                    Join
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Updated Page Title -->
+    <h1 class="text-4xl font-bold text-center text-gray-800 mb-10">Entry-Exit System: Explained</h1>
+
+    <!-- SECTION 1: OVERVIEW (Frame 1 & 2) -->
+    <div id="section-overview" class="max-w-6xl mx-auto mb-16 scroll-mt-20">
+        <div class="bg-white rounded-xl card-shadow overflow-hidden relative">
+            <header class="header-bg text-white p-6 md:p-10 text-center rounded-t-xl">
+                <h2 class="text-3xl md:text-5xl font-extrabold mb-2">1. Entry-Exit System for Gas Pipelines</h2>
+                <p class="text-lg md:text-xl font-light">Explained: Proposed Shift from Point-to-Point (P2P)</p>
+            </header>
+
+            <div class="p-6 md:p-10 text-gray-700">
+                <div class="bg-indigo-50 border-l-8 border-indigo-600 rounded-r-lg p-6 shadow-sm mb-8">
+                    <div class="flex flex-col md:flex-row items-center md:items-start space-y-4 md:space-y-0 md:space-x-6">
+                        <div class="flex-shrink-0 text-3xl">📜</div>
+                        <div>
+                            <h3 class="text-xl font-bold text-indigo-900 mb-2">PNGRB Vision 2040: Recommendation 70</h3>
+                            <p class="text-lg text-indigo-800 leading-relaxed font-medium">
+                                "Recommends a study and stakeholder dialogue for adopting an Entry–Exit (E–E) tariff system."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="text-3xl font-bold text-center text-gray-800 mb-6">P2P vs. E–E System Overview</h3>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500 card-shadow">
+                        <h3 class="text-2xl font-bold text-red-700 mb-4 flex items-center">
+                            <span class="mr-2">🇮🇳</span> Point-to-Point (P2P) System
+                            <span class="text-sm ml-2 px-2 py-0.5 bg-red-200 text-red-800 rounded-full v-nudge">CURRENT</span>
+                        </h3>
+                        <p class="text-lg font-semibold text-red-600 mb-3">What India currently follows:</p>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <span class="text-red-500 font-bold text-xl mr-3">&bull;</span>
+                                <p>Shippers book capacity along a <strong class="text-red-700">defined route</strong>, from a specific injection point to a specific offtake point.</p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-red-500 font-bold text-xl mr-3">&bull;</span>
+                                <p>Requires <strong class="text-red-700">multiple contracts</strong> tied to physical pipeline segments.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500 card-shadow">
+                        <h3 class="text-2xl font-bold text-green-700 mb-4 flex items-center">
+                            <span class="mr-2">🌍</span> Entry–Exit (E–E) System
+                            <span class="text-sm ml-2 px-2 py-0.5 bg-green-200 text-green-800 rounded-full v-nudge">GLOBAL STANDARD</span>
+                        </h3>
+                        <p class="text-lg font-semibold text-green-600 mb-3">What is an Entry–Exit (E–E) System?</p>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <span class="text-green-500 font-bold text-xl mr-3">&bull;</span>
+                                <p>Shippers book capacity at <strong class="text-green-700">entry and exit points</strong> independently (where gas enters and leaves).</p>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-green-500 font-bold text-xl mr-3">&bull;</span>
+                                <p>They <strong class="text-green-700">do not need to reserve a specific path</strong> through the network (Route-free nominations).</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mt-8 p-5 bg-yellow-100 rounded-lg border-l-4 border-yellow-500">
+                    <h3 class="text-xl font-semibold text-yellow-800 mb-2">Example: P2P Contract Execution (KG Basin → GSPL LP)</h3>
+                    <p class="text-sm text-gray-700">
+                        If a customer in the GSPL LP line takes gas from KG Basin via: <strong>KG Basin → PIL → GSPL HP → GSPL LP</strong>.
+                        Shippers still execute a Point-to-Point contract, tied to actual pipeline segments. PNGRB applies a Unified Tariff and splits it internally among operators.
+                    </p>
+                </div>
+            </div>
+            <div class="absolute bottom-4 right-4 text-xs text-gray-400 opacity-60">@Ranjith'EnergyDigest</div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: HYBRID REALITY -->
+    <div id="section-hybrid" class="max-w-6xl mx-auto mb-16 scroll-mt-20">
+        <div class="bg-white rounded-xl card-shadow overflow-hidden relative">
+            <div class="p-6 md:p-10 bg-gray-50">
+                <h2 class="section-title-accent text-3xl font-bold text-center text-gray-800 mb-6">2. India's Reality: The Unified Tariff (UFT) Catch</h2>
+                <p class="text-center text-lg text-gray-600 mb-8">India has partly implemented E–E through the UFT, but it sits on top of the existing P2P booking system.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl card-shadow border border-green-200">
+                        <h3 class="text-xl font-semibold text-green-600 mb-4 flex items-center">
+                            <span class="text-3xl mr-2 icon-check">✔</span> UFT Implemented (Tariff Structure)
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-green-500 mt-1 mr-3">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                </span>
+                                One tariff from entry to exit.
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-green-500 mt-1 mr-3">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                </span>
+                                Pipeline operators share the tariff using entity-wise ratios.
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-green-500 mt-1 mr-3">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                </span>
+                                Contractual paths published only for tariff allocation.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl card-shadow border border-red-200">
+                        <h3 class="text-xl font-semibold text-red-600 mb-4 flex items-center">
+                            <span class="text-3xl mr-2 icon-cross">✘</span> True E–E Features Missing (Operational)
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-red-500 mt-1 mr-3 font-extrabold">&bull;</span> Market-wide Entry–Exit capacity system
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-red-500 mt-1 mr-3 font-extrabold">&bull;</span> Independent entry/exit bookings
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-red-500 mt-1 mr-3 font-extrabold">&bull;</span> Virtual Trading Hubs (VTP)
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-red-500 mt-1 mr-3 font-extrabold">&bull;</span> Route-free (any-path) nominations
+                            </li>
+                            <li class="flex items-start text-gray-700">
+                                <span class="text-red-500 mt-1 mr-3 font-extrabold">&bull;</span> Title transfer at a national virtual point
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-4 right-4 text-xs text-gray-400 opacity-60">@Ranjith'EnergyDigest</div>
+        </div>
+    </div>
+
+    <!-- SECTION 3: COMPARISON TABLE -->
+    <div id="section-comparison" class="max-w-6xl mx-auto mb-16 scroll-mt-20">
+        <div class="bg-white rounded-xl card-shadow overflow-hidden p-6 md:p-10 relative">
+            <h2 class="section-title-accent text-3xl font-bold text-center text-gray-800 mb-6">3. P2P vs. True Entry–Exit (E–E) Feature Comparison</h2>
+            <div class="overflow-x-auto rounded-lg border border-gray-200">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="px-3 py-3 text-left text-xs font-bold text-gray-600 uppercase tracking-wider w-1/4">Aspect</th>
+                            <th class="px-3 py-3 text-left text-xs font-bold text-red-600 uppercase tracking-wider w-1/3">India (UFT / P2P)</th>
+                            <th class="px-3 py-3 text-left text-xs font-bold text-green-600 uppercase tracking-wider w-1/3">True Entry–Exit (Global)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-sm">
+                        <tr>
+                            <td class="px-3 py-3 font-medium text-gray-900">Booking</td>
+                            <td class="px-3 py-3">Per pipeline segment</td>
+                            <td class="px-3 py-3 text-green-700 font-semibold">Entry + exit points only</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-3 py-3 font-medium text-gray-900">Contracts</td>
+                            <td class="px-3 py-3">Multiple (per pipeline)</td>
+                            <td class="px-3 py-3 text-green-700 font-semibold">Single contract</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-3 font-medium text-gray-900">Nominations</td>
+                            <td class="px-3 py-3">Per pipeline segment</td>
+                            <td class="px-3 py-3 text-green-700 font-semibold">Single nomination at entry & exit</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-3 py-3 font-medium text-gray-900">Routing</td>
+                            <td class="px-3 py-3">Shipper follows physical path</td>
+                            <td class="px-3 py-3 text-green-700 font-semibold">Operator manages internal routing</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-3 font-medium text-gray-900">Tariff</td>
+                            <td class="px-3 py-3">Single unified tariff</td>
+                            <td class="px-3 py-3 text-green-700 font-semibold">Separate entry and exit tariffs</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-3 py-3 font-medium text-gray-900">Billing</td>
+                            <td class="px-3 py-3">Multiple invoices internally apportioned</td>
+                            <td class="px-3 py-3 text-green-700 font-semibold">Shipper pays entry + exit; operator splits internally</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-3 font-medium text-gray-900">Imbalances</td>
+                            <td class="px-3 py-3">Per pipeline segment</td>
+                            <td class="px-3 py-3 text-green-700 font-semibold">Overall entry–exit path</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-3 py-3 font-medium text-gray-900">Title Transfer</td>
+                            <td class="px-3 py-3">At each physical delivery point</td>
+                            <td class="px-3 py-3 text-green-700 font-semibold">At a Virtual Trading Point (VTP)</td>
+                        </tr>
+                        <tr>
+                            <td class="px-3 py-3 font-medium text-gray-900">Flexibility</td>
+                            <td class="px-3 py-3 text-red-700 font-semibold">Low</td>
+                            <td class="px-3 py-3 text-green-700 font-semibold">High</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="absolute bottom-4 right-4 text-xs text-gray-400 opacity-60">@Ranjith'EnergyDigest</div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: CHALLENGES -->
+    <div id="section-challenges" class="max-w-6xl mx-auto mb-16 scroll-mt-20">
+        <div class="bg-white rounded-xl card-shadow overflow-hidden relative">
+            <div class="p-6 md:p-10 bg-indigo-50 rounded-b-xl">
+                <h2 class="section-title-accent text-3xl font-bold text-center text-gray-800 mb-8">4. Challenges for Full E–E Implementation in India</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-4 rounded-lg border-t-4 border-indigo-400 card-shadow hover:shadow-lg transition duration-300">
+                        <p class="font-bold text-lg text-indigo-700 mb-2">Old Contracts Need Updating</p>
+                        <p class="text-sm text-gray-600">Current agreements were made for fixed routes; changing them may affect who gets how much gas and which pipelines are used.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-t-4 border-indigo-400 card-shadow hover:shadow-lg transition duration-300">
+                        <p class="font-bold text-lg text-indigo-700 mb-2">Pipelines Aren’t Fully Connected</p>
+                        <p class="text-sm text-gray-600">Many lines are still separate or dedicated to specific flows. Gas cannot move freely everywhere yet.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-t-4 border-indigo-400 card-shadow hover:shadow-lg transition duration-300">
+                        <p class="font-bold text-lg text-indigo-700 mb-2">Fair Access for Everyone</p>
+                        <p class="text-sm text-gray-600">Some operators also sell gas themselves, complicating open access. New rules must be redesigned for entry and exit points.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-t-4 border-indigo-400 card-shadow hover:shadow-lg transition duration-300">
+                        <p class="font-bold text-lg text-indigo-700 mb-2">Operational Complexity</p>
+                        <p class="text-sm text-gray-600">Operators must manage flows, nominations, and balances across a complex, multi-pipeline system.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-t-4 border-indigo-400 card-shadow hover:shadow-lg transition duration-300">
+                        <p class="font-bold text-lg text-indigo-700 mb-2">Tracking Imbalances & Ownership</p>
+                        <p class="text-sm text-gray-600">Shippers need new ways to manage differences between injected and withdrawn volumes and to allow trading at virtual points.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border-t-4 border-indigo-400 card-shadow hover:shadow-lg transition duration-300">
+                        <p class="font-bold text-lg text-indigo-700 mb-2">Getting Everyone On Board</p>
+                        <p class="text-sm text-gray-600">Shippers and operators are used to the old system, and infrastructure in some regions is still developing.</p>
+                    </div>
+                </div>
+                <p class="text-center text-xs mt-8 text-gray-500">Source: PNGRB Vision 2040 Report (Rec. 70) and associated studies on gas market evolution.</p>
+            </div>
+            <div class="absolute bottom-4 right-4 text-xs text-gray-400 opacity-60">@Ranjith'EnergyDigest</div>
+        </div>
+    </div>
+
+</body>
+</html>
