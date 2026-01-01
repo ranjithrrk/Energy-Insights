@@ -31,11 +31,15 @@
         <a href="https://ranjithrrk.github.io/Energy-Insights/" class="text-[1.15rem] font-extrabold tracking-tight text-[#0f172a] uppercase no-underline">
             Ranjith’s Energy Digest
         </a>
-        <div class="flex gap-3 items-center">
-            <a href="https://ranjithrrk.github.io/Energy-Insights/" class="text-[13px] px-4 py-2 rounded-md font-semibold border border-gray-200 hover:bg-gray-50 no-underline text-gray-900 transition-colors">
+        <div class="flex gap-2 md:gap-3 items-center">
+            <a href="https://ranjithrrk.github.io/Energy-Insights/" class="hidden sm:block text-[13px] px-4 py-2 rounded-md font-semibold border border-gray-200 hover:bg-gray-50 no-underline text-gray-900 transition-colors">
                 Home
             </a>
-            <a href="https://chat.whatsapp.com/GoCN0Hiyhac2Za1ocmVhrQ" target="_blank" class="text-[13px] px-4 py-2 rounded-md font-semibold bg-[#16a34a] text-white hover:bg-[#15803d] no-underline">
+            <!-- Restored LinkedIn Link -->
+            <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="text-[13px] px-4 py-2 rounded-md font-semibold border border-[#0A66C2] text-[#0A66C2] hover:bg-[#f0f7ff] no-underline transition-colors">
+                Follow
+            </a>
+            <a href="https://chat.whatsapp.com/GoCN0Hiyhac2Za1ocmVhrQ" target="_blank" class="text-[13px] px-4 py-2 rounded-md font-semibold bg-[#16a34a] text-white hover:bg-[#15803d] no-underline transition-transform active:scale-95">
                 Join Community
             </a>
         </div>
@@ -93,9 +97,11 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#0f172a] text-white py-16 px-[5%] text-center">
-        <p class="opacity-70 text-sm">© 2024 Ranjith's Energy Digest. Independent Analysis & Data Intelligence.</p>
+    <!-- Footer - Reduced vertical padding (height) -->
+    <footer class="bg-[#0f172a] text-white py-6 px-[5%] text-center">
+        <div class="max-w-md mx-auto">
+            <p class="opacity-70 text-xs tracking-tight">© 2024 Ranjith's Energy Digest. Independent Analysis & Data Intelligence.</p>
+        </div>
     </footer>
 
     <script>
@@ -118,7 +124,7 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'top', labels: { usePointStyle: true, padding: 20, font: { weight: '600' } } },
+                    legend: { position: 'top', labels: { usePointStyle: true, padding: 20, font: { weight: '600', size: 11 } } },
                     tooltip: { backgroundColor: '#0f172a', padding: 12, borderRadius: 8 }
                 },
                 scales: {
@@ -168,7 +174,7 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'top', labels: { usePointStyle: true, padding: 20, font: { weight: '600' } } },
+                    legend: { position: 'top', labels: { usePointStyle: true, padding: 20, font: { weight: '600', size: 11 } } },
                     tooltip: { backgroundColor: '#0f172a', padding: 12, borderRadius: 8 }
                 },
                 scales: {
