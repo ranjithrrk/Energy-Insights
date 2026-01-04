@@ -53,7 +53,10 @@
       text-decoration: none;
       text-transform: uppercase;
       display: flex;
+      flex-wrap: wrap; /* Allows breaking on mobile */
       align-items: center;
+      max-width: 200px; /* Constraints width to force break if needed */
+      line-height: 1.2;
     }
 
     .logo-name {
@@ -74,14 +77,14 @@
     }
     
     .btn-about {
-  color: #ffffff;
-  background: var(--accent-blue);
-  border: 1px solid var(--accent-blue);
-}
-.btn-about:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
+      color: #ffffff;
+      background: var(--accent-blue);
+      border: 1px solid var(--accent-blue);
+    }
+    .btn-about:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
 
     .btn-follow { 
       color: #0A66C2; 
@@ -101,7 +104,7 @@
       transform: translateY(-1px);
     }
 
-    /* Hero Section with Local Shaded Background Image */
+    /* Hero Section */
     .hero {
       position: relative;
       min-height: 75vh;
@@ -114,7 +117,6 @@
       overflow: hidden;
     }
 
-    /* The Background Image Logic */
     .hero::before {
       content: "";
       position: absolute;
@@ -156,6 +158,12 @@
       font-weight: 400;
     }
     
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
     .cta { 
       display: inline-block; 
       padding: 14px 28px; 
@@ -168,7 +176,7 @@
     }
     .cta:hover { opacity: 0.9; }
 
-    /* Stats Bar - Social Proof */
+    /* Stats Bar */
     .stats-section {
       padding: 80px 5%;
       background: #ffffff;
@@ -247,22 +255,30 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
       gap: 50px;
+      align-items: stretch; /* Ensures all grid items are same height */
     }
 
     .post-card {
       background: transparent;
       display: flex;
       flex-direction: column;
+      height: 100%; /* Fill the grid cell height */
       transition: all 0.3s ease;
     }
 
     .post-thumbnail { 
       width: 100%; 
-      height: 240px; 
+      aspect-ratio: 16 / 9; /* Uniform aspect ratio */
       object-fit: cover; 
       border-radius: 4px;
       background: #eee;
       margin-bottom: 24px;
+    }
+
+    .post-content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1; /* Allows content to fill card height */
     }
 
     .post-category {
@@ -286,7 +302,11 @@
       font-size: 1rem; 
       color: var(--text-muted); 
       margin-bottom: 24px; 
-      flex-grow: 1;
+      flex-grow: 1; /* Pushes the link section to the very bottom */
+    }
+
+    .post-links {
+      margin-top: auto; /* Safety anchor to bottom */
     }
 
     .post-links a { 
@@ -300,7 +320,7 @@
     }
     .post-links a:hover { border-color: var(--accent-navy); }
 
-    /* Tighter Footer */
+    /* Footer */
     footer {
       padding: 30px 5%;
       background: var(--accent-navy);
@@ -314,12 +334,12 @@
     /* Responsive */
     @media (max-width: 768px) {
       header { padding: 0.8rem 5%; }
-      .logo { font-size: 1rem; }
+      .logo { font-size: 0.9rem; max-width: 140px; } /* Forced wrap on mobile */
       .nav-actions { gap: 6px; }
-      .btn { padding: 6px 12px; font-size: 12px; }
+      .btn { padding: 6px 10px; font-size: 11px; }
       
-      /* Ensure follow is visible on mobile */
-      .nav-actions .btn-follow { display: inline-block; }
+      /* Hide follow on mobile as requested */
+      .btn-follow { display: none; }
       
       .hero { padding-top: 120px; padding-bottom: 60px; }
       .hero::before { width: 100%; opacity: 0.15; -webkit-mask-image: linear-gradient(to bottom, black, transparent); mask-image: linear-gradient(to bottom, black, transparent); }
@@ -332,9 +352,9 @@
 <body>
 
   <header>
-<a href="#" class="logo">
-  <span class="logo-name">Ranjith’s</span> Energy Digest
-</a>
+    <a href="#" class="logo">
+      <span class="logo-name">Ranjith’s</span> Energy Digest
+    </a>
     <div class="nav-actions">
       <a href="posts/Aboutme.html" class="btn btn-about">About Me</a>
       <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="btn btn-follow">Follow</a>
@@ -346,11 +366,13 @@
     <div class="hero-content">
       <h1>Data-driven insights into India's energy transition.</h1>
       <p>Independent analysis on natural gas markets, LNG infrastructure, and the policy landscape of the subcontinent.</p>
-      <a href="#latest" class="cta">Read Latest Insights</a>
+      <div class="hero-buttons">
+        <a href="#latest" class="cta">Read Latest Insights</a>
+        <a href="https://beneficial-fern-dc6.notion.site/2296024ee9af80d0ac46dc36645b4ef0?v=2296024ee9af806d9195000c98501ef7" target="_blank" class="cta">Read Archives</a>
+      </div>
     </div>
   </section>
 
-  <!-- Platform Stats Section -->
   <section class="stats-section">
     <div class="stats-grid">
       <div class="stat-item">
@@ -395,7 +417,7 @@
         </div>
       </article>
 
-      <!-- Post 2: Updated with requested structural shift analysis -->
+      <!-- Post 2 -->
       <article class="post-card">
         <img src="posts/IEX-Power-Analysis-23-25.png" class="post-thumbnail" alt="IEX Power Price">
         <div class="post-content">
