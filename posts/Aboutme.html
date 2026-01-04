@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | Ranjith's Energy Digest</title>
+  <style>
+    :root {
+      --bg-body: #fdfdfd;
+      --bg-alt: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-main: #1a1a1a;
+      --text-muted: #555555;
+      --accent-navy: #0f172a;
+      --accent-blue: #2563eb;
+      --accent-green: #16a34a;
+      --border-color: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, system-ui, sans-serif;
+      background: var(--bg-body);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header - Consistent with Home */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .logo { 
+      font-size: 1.25rem; 
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--accent-navy);
+      text-decoration: none;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-name {
+      color: var(--accent-blue);
+      margin-right: 6px;
+    }
+
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
+    
+    .btn { 
+      font-size: 13px; 
+      padding: 8px 16px; 
+      border-radius: 6px; 
+      text-decoration: none; 
+      font-weight: 600; 
+      transition: all 0.2s ease; 
+      white-space: nowrap;
+    }
+
+    .btn-follow { 
+      color: #0A66C2; 
+      border: 1px solid #0A66C2;
+      background: transparent;
+    }
+    .btn-follow:hover { 
+      background: #f0f7ff;
+    }
+    
+    .btn-join { 
+      color: #ffffff; 
+      background: var(--accent-green); 
+    }
+    .btn-join:hover { 
+      background: #15803d;
+      transform: translateY(-1px);
+    }
+
+    /* About Section Layout */
+    .about-container {
+      max-width: 1100px;
+      margin: 140px auto 100px;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-image-wrapper {
+      position: sticky;
+      top: 120px;
+    }
+
+    .profile-photo {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      background: #f0f0f0;
+      border: 1px solid var(--border-color);
+    }
+
+    .about-content h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent-navy);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .about-content p {
+      font-size: 1.1rem;
+      color: var(--text-main);
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .about-content .lead {
+      font-size: 1.25rem;
+      color: var(--accent-blue);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .about-list {
+      list-style: none;
+      margin: 2rem 0;
+      padding: 2rem;
+      background: var(--bg-alt);
+      border-radius: 12px;
+      border-left: 4px solid var(--accent-blue);
+    }
+
+    .about-list li {
+      margin-bottom: 12px;
+      padding-left: 24px;
+      position: relative;
+      font-weight: 500;
+    }
+
+    .about-list li::before {
+      content: "•";
+      color: var(--accent-blue);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .disclaimer {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      font-style: italic;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 2rem;
+    }
+
+    /* Footer - Consistent with Home */
+    footer {
+      padding: 40px 5%;
+      background: var(--accent-navy);
+      color: #ffffff;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    footer p { opacity: 0.7; font-size: 13px; letter-spacing: 0.02em; }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .about-container {
+        grid-template-columns: 1fr;
+        margin-top: 120px;
+        gap: 40px;
+      }
+      
+      .about-image-wrapper {
+        position: relative;
+        top: 0;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .about-content h1 {
+        font-size: 2rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 0.8rem 5%; }
+      .logo { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="logo">
+      <span class="logo-name">Ranjith’s</span> Energy Digest
+    </a>
+    <div class="nav-actions">
+      <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="btn btn-follow">Follow</a>
+      <a href="https://chat.whatsapp.com/GoCN0Hiyhac2Za1ocmVhrQ" target="_blank" class="btn btn-join">Join</a>
+    </div>
+  </header>
+
+  <main class="about-container">
+    <aside class="about-image-wrapper">
+      <img src="posts/myphoto.jpg" alt="Ranjith Kumar R" class="profile-photo" onerror="this.src='https://via.placeholder.com/350x438?text=Ranjith+Kumar+R'">
+      
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="btn btn-follow" style="flex: 1; text-align: center;">LinkedIn Profile</a>
+      </div>
+    </aside>
+
+    <article class="about-content">
+      <h1>About Me</h1>
+      
+      <p class="lead">I am an energy professional with over 15 years of experience across India’s natural gas and LNG value chain.</p>
+      
+      <p>I currently work at IndianOil Corporation Limited, where my role has involved managing long-term LNG contracts, participating in equity LNG investments, and navigating complex commercial negotiations during periods of global price volatility.</p>
+      
+      <p>Over the years, I have been closely associated with initiatives that helped cushion Indian gas consumers during high-price cycles through contract renegotiations and portfolio recalibration. My current focus is on gas marketing and demand creation, particularly in aligning LNG with India’s evolving energy needs.</p>
+      
+      <p><strong>Energy Insights</strong> is my attempt to create a platform to share independent, data-driven perspectives on India’s energy markets, drawing from market signals, policy developments, and commercial realities. The coverage spans:</p>
+      
+      <ul class="about-list">
+        <li>LNG and natural gas markets</li>
+        <li>Power price behaviour and fuel-switching economics</li>
+        <li>CNG/CGD, fertiliser, and mobility demand drivers</li>
+        <li>Infrastructure-led demand creation</li>
+        <li>Hydrogen, renewables, and transition pathways</li>
+        <li>Policy and regulatory inflection points shaping India’s energy future</li>
+      </ul>
+
+      <p class="disclaimer">The views expressed are personal and analytical, intended to support informed discussion and better decision-making in a rapidly evolving energy ecosystem. They do not represent the views of my company or any of its affiliates.</p>
+      
+      <div style="margin-top: 30px;">
+        <a href="index.html" style="color: var(--accent-blue); font-weight: 700; text-decoration: none;">← Back to Insights</a>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Ranjith's Energy Digest. Independent Analysis & Data Intelligence.</p>
+  </footer>
+
+</body>
+</html>
