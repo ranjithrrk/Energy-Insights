@@ -108,15 +108,17 @@
     }
 
     .profile-photo {
-      display: block; /* Ensure it behaves as a block element */
+      display: block;
       width: 100%;
-      height: auto; /* Allow height to adjust naturally */
-      max-height: 500px; /* Prevent over-scaling */
+      height: auto;
+      min-height: 400px;
+      max-height: 500px;
       object-fit: cover;
       border-radius: 12px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-      background: #f0f0f0;
+      background: #eeeeee;
       border: 1px solid var(--border-color);
+      transition: opacity 0.3s ease;
     }
 
     .about-content h1 {
@@ -231,7 +233,8 @@
 
   <main class="about-container">
     <aside class="about-image-wrapper">
-      <img src="posts/Myphoto.jpeg" alt="Ranjith Kumar R" class="profile-photo" onerror="this.src='https://via.placeholder.com/350x438?text=Image+Not+Found'">
+      <!-- Added a fallback and direct absolute path option just in case -->
+      <img id="profileImage" src="posts/Myphoto.jpeg" alt="Ranjith Kumar R" class="profile-photo" width="350" height="438">
       
       <div class="social-links">
         <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="btn btn-follow" style="flex: 1; text-align: center;">LinkedIn Profile</a>
@@ -269,6 +272,25 @@
   <footer>
     <p>&copy; 2024 Ranjith's Energy Digest. Independent Analysis & Data Intelligence.</p>
   </footer>
+
+  <script>
+    // Self-correcting image loader
+    window.onload = function() {
+      const img = document.getElementById('profileImage');
+      
+      // If image fails to load, try absolute path with cache-buster
+      img.onerror = function() {
+        console.log("Relative path failed, trying absolute path...");
+        this.onerror = null; // Prevent infinite loops
+        this.src = "https://ranjithrrk.github.io/Energy-Insights/posts/Myphoto.jpeg?v=" + new Date().getTime();
+      };
+
+      // Force a reload if it's stuck in "loading" state
+      if (!img.complete) {
+        img.src = img.src; 
+      }
+    };
+  </script>
 
 </body>
 </html>
