@@ -108,8 +108,10 @@
     }
 
     .profile-photo {
+      display: block; /* Ensure it behaves as a block element */
       width: 100%;
-      aspect-ratio: 4/5;
+      height: auto; /* Allow height to adjust naturally */
+      max-height: 500px; /* Prevent over-scaling */
       object-fit: cover;
       border-radius: 12px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.05);
@@ -229,7 +231,7 @@
 
   <main class="about-container">
     <aside class="about-image-wrapper">
-      <img src="posts/Myphoto.jpeg" alt="Ranjith Kumar R" class="profile-photo" onerror="this.src='https://via.placeholder.com/350x438?text=Ranjith+Kumar+R'">
+      <img src="posts/Myphoto.jpeg" alt="Ranjith Kumar R" class="profile-photo" onerror="this.src='https://via.placeholder.com/350x438?text=Image+Not+Found'">
       
       <div class="social-links">
         <a href="https://www.linkedin.com/in/ranjith-kumar-r-768a1721/" target="_blank" class="btn btn-follow" style="flex: 1; text-align: center;">LinkedIn Profile</a>
